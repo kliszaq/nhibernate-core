@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2"
+                   assembly="NHibernate.Test"
+                   namespace="NHibernate.Test.NHSpecificTest.NH2577">
+  <class name="Terminal" table="Terminals">
+    <id name="Id" type="Int32">
+      <generator class="native" />
+    </id>
+    <property name="Street" />
+    <property name="StreetXml" formula="(SELECT Street FROM terminals WHERE terminals.id = Id)"/>
+    <property name="StreetXml2" formula="(SELECT Street FROM terminals WHERE terminals.id = Id)"/>
+    <map name="Attributes" table="TERM_ATTRIBUTES">
+      <key column="TerminalId"/>
+      <index column="ATTR_ID" type="System.Int64"/>
+      <element column="Value" type="System.String"/>
+    </map>
+    <many-to-one name="NetProtocol" class="NetProtocol" column="NetProtocol_Id"/>
+  </class>
+  <class name="NetProtocol">
+    <id name="Id" type="Int32">
+      <generator class="native" />
+    </id>    
+  </class>
+</hibernate-mapping>
